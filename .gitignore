@@ -10,3 +10,5 @@ searchindex
 *.tmproj
 .sass-cache
 venv
+Gemfile
+Gemfile.lock
