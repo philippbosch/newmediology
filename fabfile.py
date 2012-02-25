@@ -30,7 +30,7 @@ def deploy():
         input = prompt('Are you sure you want to deploy to the production server?', default="n", validate=r'^[yYnN]$')
         if input not in ['y','Y']:
             exit()
-    local("git push %(remote)s %(branch)smaster" % env)
+    local("git push %(remote)s %(branch)s:master" % env)
     migrate()
     reload_server()
 
