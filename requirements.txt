@@ -1,0 +1,6 @@
+https://www.djangoproject.com/m/releases/1.4/Django-1.4b1.tar.gz
+psycopg2
+South
+Fabric
+django_compressor
+gunicorn

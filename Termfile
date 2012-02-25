@@ -1,0 +1,12 @@
+# __PROJECT_TITLE__
+
+PROJECT_NAME = "newmediology"
+PORT = 8000
+
+run "cd ~/Sites/#{PROJECT_NAME} && . bin/activate"
+run "foreman start -p #{PORT} -f Procfile.dev"
+  
+pane do
+  run "cd ~/Sites/#{PROJECT_NAME} && . bin/activate"
+  run "ls"
+end

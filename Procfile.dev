@@ -1,0 +1,2 @@
+web:            bundle exec python manage.py runserver 0.0.0.0:$PORT
+compass:        bundle exec compass watch static
