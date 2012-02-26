@@ -36,8 +36,8 @@ def deploy():
 
 def migrate():
     """Sync and migrate the database."""
-    local("heroku run python manage.py syncdb")
-    local("heroku run python manage.py migrate")
+    local("heroku run python manage.py syncdb --remote %(remote)s" % env)
+    local("heroku run python manage.py migrate --remote %(remote)s" % env)
 
 def reload_server():
     """Reload the webserver and take the server flavor into account."""
