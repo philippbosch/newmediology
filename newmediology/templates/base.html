@@ -15,69 +15,10 @@
 <body>
     <div id="content">
         {% block content %}
-            <div id="dummy">
-                <link href="http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold|Droid+Sans+Mono" rel="stylesheet"> 
-                <style>
-                    body {
-                        color: #111;
-                        background: #333 url('http://pb.io/static/images/bg.png') fixed;
-                        font-family: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-                        text-align: center;
-                    }
-                    #logo {
-                        font-size: 800px;
-                        line-height: 0.7;
-                        color: #2A2A2A;
-                        text-shadow: rgba(0, 0, 0, 0.5) -1px -0.5px, rgba(255, 255, 255, 0.05) 1px 0.5px;
-                    }
-                    #identity {
-                        color: #999;
-                        text-shadow: rgba(0, 0, 0, 0.4) 1px 1px;
-                        text-decoration: none;
-                        display: block;
-                        margin-bottom: 32px;
-                    }
-                    #identity .fn {
-                        font-size: 32px;
-                        font-weight: bold;
-                        margin-left: -2px;
-                        margin-bottom: 0.15em;
-                        color: white;
-                    }
-                    p {
-                        font-family: "Droid Sans Mono";
-                    }
-                    @-webkit-keyframes blink {
-                        0% {
-                            opacity: 0;
-                        }
-                        49% {
-                            opacity: 0;
-                        }
-                        50% {
-                            opacity: 1;
-                        }
-                        100% {
-                            opacity: 1;
-                        }
-                    }
-                    .cursor {
-                        -webkit-animation-name: blink;
-                        -webkit-animation-duration: 1s;
-                        -webkit-animation-iteration-count: infinite;
-                    }
-                </style>
-                <div id="logo">›»</div>
-                <a href="http://pb.io/" id="identity"> 
-                    <div class="fn">Philipp Bosch</div> 
-                    <div class="subline">Web &amp; Mobile Development</div> 
-                </a> 
-                <p>$ let the games begin<span class="cursor">_</span></p>
-            </div>
         {% endblock %}
     </div>
     {% compress js %}
-        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/modernizr.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/modernizr.js"></script>
     {% endcompress %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 </body>

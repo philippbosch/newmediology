@@ -16,8 +16,9 @@ if DJANGO_CONF != 'default':
 
 
 # Import local settings
+from .local_settings import *
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
 
