@@ -4,8 +4,8 @@ from .models import Answer
 
 
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'trigger', 'order',)
-    list_editable = ('order',)
+    list_display = ('slug', 'trigger', 'active', 'order',)
+    list_editable = ('active', 'order',)
     fieldsets = (
         (None, {
             'fields': ('slug', 'order', 'active',)

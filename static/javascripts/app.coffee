@@ -2,7 +2,7 @@ $ ->
     $prompt = $('#prompt')
     $history = $('#history')
     $content = $('#content')
-    # converter = new Showdown.converter
+    converter = new Showdown.converter
     
     $prompt.on 'keypress', (e, data) ->
         key = e.keyCode || e.which
@@ -55,15 +55,15 @@ $ ->
             dataType: 'json'
         .success (data) ->
             if data.text
-                $history.trigger 'message', type: 'answer', html: data.text
+                $history.trigger 'message', type: 'answer', html: converter.makeHtml(data.text)
             if data.page
                 $content.trigger 'showwebpage', url: data.page
             else if data.url
-                $content.trigget 'showwebpage', url: data.url
+                $content.trigger 'showwebpage', url: data.url
             if data.javascript
-                m = data.matches
-                do (m) ->
-                    eval data.javascript
+                eval "msg = (function(m) { console.log(m); #{data.javascript} })(data.matches);"
+                if msg
+                    $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
     
     $content.on 'updatecontent', (e, data) ->
         $content.html data.content

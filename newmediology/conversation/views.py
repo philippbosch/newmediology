@@ -12,14 +12,13 @@ class TalkView(TemplateView):
     def dispatch(self, request, **kwargs):
         if request.is_ajax():
             answer = Answer.objects.get_by_question(request.GET.get('question'))
-            data = {
-                'matches': answer.matches
-            }
+            data = {}
             if answer:
                 data['text'] = answer.action_text
                 data['page'] = answer.action_page
                 data['url'] = answer.action_url
                 data['javascript'] = answer.action_javascript
+                data['matches'] = answer.matches
             
             resp = HttpResponse(json.dumps(data))
             resp['Content-Type'] = 'application/json'

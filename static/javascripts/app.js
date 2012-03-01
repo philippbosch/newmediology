@@ -1,10 +1,11 @@
 (function() {
 
   $(function() {
-    var $content, $history, $prompt;
+    var $content, $history, $prompt, converter;
     $prompt = $('#prompt');
     $history = $('#history');
     $content = $('#content');
+    converter = new Showdown.converter;
     $prompt.on('keypress', function(e, data) {
       var key, msg;
       key = e.keyCode || e.which;
@@ -73,11 +74,10 @@
         type: 'GET',
         dataType: 'json'
       }).success(function(data) {
-        var m;
         if (data.text) {
           $history.trigger('message', {
             type: 'answer',
-            html: data.text
+            html: converter.makeHtml(data.text)
           });
         }
         if (data.page) {
@@ -85,15 +85,18 @@
             url: data.page
           });
         } else if (data.url) {
-          $content.trigget('showwebpage', {
+          $content.trigger('showwebpage', {
             url: data.url
           });
         }
         if (data.javascript) {
-          m = data.matches;
-          return (function(m) {
-            return eval(data.javascript);
-          })(m);
+          eval("msg = (function(m) { console.log(m); " + data.javascript + " })(data.matches);");
+          if (msg) {
+            return $history.trigger('message', {
+              type: 'answer',
+              html: converter.makeHtml(msg)
+            });
+          }
         }
       });
     });
