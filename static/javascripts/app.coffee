@@ -61,7 +61,7 @@ $ ->
             else if data.url
                 $content.trigger 'showwebpage', url: data.url
             if data.javascript
-                eval "msg = (function(m) { console.log(m); #{data.javascript} })(data.matches);"
+                eval "msg = (function(m) { #{data.javascript} })(data.matches);"
                 if msg
                     $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
     
