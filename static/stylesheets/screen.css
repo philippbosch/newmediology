@@ -53,3 +53,117 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
+
+body {
+  background: #FFF;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+}
+
+#conversation {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 320px;
+}
+#conversation #logo {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+}
+#conversation #prompt {
+  position: absolute;
+  bottom: 60px;
+  left: 20px;
+  right: 20px;
+  font-size: 18px;
+  border: 0;
+  margin: 0;
+  display: block;
+  background: #000;
+  color: #FFF;
+  padding: 4px 6px;
+  text-transform: lowercase;
+  text-align: right;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  -o-border-radius: 0;
+  -ms-border-radius: 0;
+  -khtml-border-radius: 0;
+  border-radius: 0;
+}
+#conversation #prompt:focus {
+  outline: 0;
+}
+#conversation #history-container {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  bottom: 93px;
+}
+#conversation #history {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 100%;
+  overflow: auto;
+}
+#conversation #history li {
+  padding: 10px;
+  border-top: 1px solid #000;
+  position: relative;
+  line-height: 1.4;
+}
+#conversation #history li:before {
+  font-weight: bold;
+  position: absolute;
+  left: 5px;
+}
+#conversation #history li.question {
+  border-top-width: 2px;
+  text-align: right;
+  font-style: italic;
+}
+#conversation #history a {
+  color: inherit;
+  text-decoration: inherit;
+  -moz-transition-property: background color;
+  -webkit-transition-property: background color;
+  -o-transition-property: background color;
+  transition-property: background color;
+  -moz-transition-duration: 250ms;
+  -webkit-transition-duration: 250ms;
+  -o-transition-duration: 250ms;
+  transition-duration: 250ms;
+  -moz-transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+#conversation #history a:after {
+  content: "_";
+}
+#conversation #history a:hover {
+  background: #000;
+  color: #FFF;
+}
+
+#content {
+  position: absolute;
+  left: 320px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+#content iframe {
+  width: 100%;
+  height: 100%;
+}

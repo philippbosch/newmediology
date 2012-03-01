@@ -23,9 +23,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 TIME_ZONE = 'Europe/Berlin'
-LANGUAGE_CODE = 'de'
+LANGUAGE_CODE = 'en'
 LANGUAGES = (
-    ('de', 'Deutsch'),
+    ('en', 'English'),
 )
 USE_I18N = True
 USE_L10N = True
@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'south',
     'compressor',
+    '%s.conversation' % PROJECT_NAME
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

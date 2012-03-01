@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block site_name %}New Mediology{% endblock %}</title>
     {% compress css %}
         <link href="{{ STATIC_URL }}stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
@@ -13,14 +14,14 @@
 </head>
 
 <body>
-    <div id="content">
-        {% block content %}
-        {% endblock %}
-    </div>
+    {% block content %}
+    {% endblock content %}
+    
     {% compress js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/modernizr.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/modernizr.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/jquery.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/app.js"></script>
     {% endcompress %}
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 </body>
 
 </html>
