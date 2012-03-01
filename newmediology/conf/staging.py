@@ -1,3 +1,5 @@
+import os
+
 # from .default import PROJECT_NAME
 # 
 EMAIL_HOST = 'imap.gmail.com'
@@ -16,3 +18,7 @@ STATIC_URL = 'http://cdn.newmediology.org.s3.amazonaws.com/'
 # COMPRESS_STORAGE = '%s.util.storage.CachedS3BotoStorage' % PROJECT_NAME
 # COMPRESS_ENABLED = True
 # COMPRESS_OFFLINE = True
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
