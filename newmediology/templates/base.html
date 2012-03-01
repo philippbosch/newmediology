@@ -5,10 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block site_name %}New Mediology{% endblock %}</title>
-    {% compress css %}
-        <link href="{{ STATIC_URL }}stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
-        <link href="{{ STATIC_URL }}stylesheets/print.css" media="print" rel="stylesheet" />
-    {% endcompress %}
+    <link href="{{ STATIC_URL }}stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}images/favicon.ico" />
     <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.png" />
 </head>
@@ -17,12 +14,10 @@
     {% block content %}
     {% endblock content %}
     
-    {% compress js %}
-        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/modernizr.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/jquery.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/showdown.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}javascripts/app.js"></script>
-    {% endcompress %}
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/modernizr.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/lib/showdown.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/app.js"></script>
 </body>
 
 </html>
