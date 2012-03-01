@@ -90,7 +90,7 @@
           });
         }
         if (data.javascript) {
-          eval("msg = (function(m) { console.log(m); " + data.javascript + " })(data.matches);");
+          eval("msg = (function(m) { " + data.javascript + " })(data.matches);");
           if (msg) {
             return $history.trigger('message', {
               type: 'answer',
