@@ -65,6 +65,16 @@ $ ->
                 if msg
                     $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
     
+    $(document).on 'click', '#history a:not([href*="/"])', (e) ->
+        e.preventDefault()
+        slug = $(this).attr('href')
+        if Modernizr.history
+            history.pushState null, "", "/#{slug}"
+        else
+            location.hash = '#{slug}'
+        $prompt.trigger 'enterquestion', text: slug
+        return false
+    
     $content.on 'updatecontent', (e, data) ->
         $content.html data.content
     
@@ -84,3 +94,11 @@ $ ->
     
     if location.hash.length && location.hash != '#'
         $(window).trigger 'hashchange'
+    
+    $(window).on 'popstate', (e,x,y) ->
+        if location.pathname != "/"
+            slug = location.pathname.substr(1)
+            $prompt.trigger 'enterquestion', text: slug
+    
+    if not Modernizr.history
+        $(window).trigger 'popstate'

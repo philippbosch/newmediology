@@ -100,6 +100,20 @@
         }
       });
     });
+    $(document).on('click', '#history a:not([href*="/"])', function(e) {
+      var slug;
+      e.preventDefault();
+      slug = $(this).attr('href');
+      if (Modernizr.history) {
+        history.pushState(null, "", "/" + slug);
+      } else {
+        location.hash = '#{slug}';
+      }
+      $prompt.trigger('enterquestion', {
+        text: slug
+      });
+      return false;
+    });
     $content.on('updatecontent', function(e, data) {
       return $content.html(data.content);
     });
@@ -127,8 +141,18 @@
       });
     });
     if (location.hash.length && location.hash !== '#') {
-      return $(window).trigger('hashchange');
+      $(window).trigger('hashchange');
     }
+    $(window).on('popstate', function(e, x, y) {
+      var slug;
+      if (location.pathname !== "/") {
+        slug = location.pathname.substr(1);
+        return $prompt.trigger('enterquestion', {
+          text: slug
+        });
+      }
+    });
+    if (!Modernizr.history) return $(window).trigger('popstate');
   });
 
 }).call(this);
