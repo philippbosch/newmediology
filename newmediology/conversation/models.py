@@ -1,6 +1,10 @@
+import json
 import re
+import requests
 
+from django.core.cache import cache
 from django.db import models
+from django.utils.functional import lazy
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -17,6 +21,7 @@ class AnswerManager(models.Manager):
 
 class Answer(models.Model):
     slug = models.SlugField()
+    sample_question = models.CharField(max_length=255, verbose_name=_("sample question"))
     
     trigger_keywords = models.CharField(max_length=255, blank=True, verbose_name=_("keywords"), help_text=_("One or more keywords, separated by commas"))
     trigger_regex = models.CharField(max_length=255, blank=True, verbose_name=_("regular expression"), help_text=_("e.g. '^(hello|hi)' (do not include slashes)"))
@@ -31,6 +36,10 @@ class Answer(models.Model):
     
     objects = AnswerManager()
     
+    def __init__(self, *args, **kwargs):
+        super(Answer, self).__init__(*args, **kwargs)
+        self._meta.get_field_by_name('action_page')[0]._choices = lazy(get_github_pages_choices, list)()
+    
     def __unicode__(self):
         return u"%s" % self.slug
     
@@ -41,3 +50,16 @@ class Answer(models.Model):
     
     class Meta:
         ordering = ('order',)
+
+
+def get_github_pages_choices():
+    pages_choices = cache.get('github_pages_choices')
+    if not pages_choices:
+        req = requests.get('http://newmediology.github.com/pages.newmediology.org/pages.json')
+        if req.ok:
+            pages = json.loads(req.text)
+        else:
+            pages = []
+        pages_choices = [(page['url'], "%s (%s)" % (page['title'], page['url'])) for page in pages]
+        cache.set('github_pages_choices', pages_choices, 60)
+    return pages_choices

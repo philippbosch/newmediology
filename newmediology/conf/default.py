@@ -115,6 +115,12 @@ LOGGING = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
 COMPRESS = True
 COMPRESS_ROOT = PROJECT_STATIC_ROOT
 COMPRESS_URL = STATIC_URL

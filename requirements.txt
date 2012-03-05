@@ -2,6 +2,8 @@ https://www.djangoproject.com/m/releases/1.4/Django-1.4b1.tar.gz
 Fabric==1.4.0
 South==0.7.3
 boto==2.2.2
+certifi==0.0.8
+chardet==1.0.1
 distribute==0.6.19
 django-appconf==0.5
 django-compressor==1.1.2
@@ -9,5 +11,6 @@ django-storages==1.1.4
 gunicorn==0.13.4
 psycopg2==2.4.4
 pycrypto==2.5
+requests==0.10.6
 ssh==1.7.13
 wsgiref==0.1.2
