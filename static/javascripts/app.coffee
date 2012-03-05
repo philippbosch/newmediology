@@ -68,18 +68,18 @@ $ ->
             type: 'GET'
             dataType: 'json'
         .success (data) ->
-            window.setTimeout ->
-                if data.text
-                    $history.trigger 'message', type: 'answer', html: converter.makeHtml(data.text)
-                if data.page
-                    $content.trigger 'showwebpage', url: data.page
-                else if data.url
-                    $content.trigger 'showwebpage', url: data.url
-                if data.javascript
-                    eval "msg = (function(m) { #{data.javascript} })(data.matches);"
-                    if msg
-                        $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
-            , answerDelay
+            if data.text
+                $history.trigger 'message', type: 'answer', html: converter.makeHtml(data.text)
+            if data.page
+                $content.trigger 'showwebpage', url: data.page
+            else if data.url
+                $content.trigger 'showwebpage', url: data.url
+            if data.javascript
+                eval "msg = (function(m) { #{data.javascript} })(data.matches);"
+                if msg
+                    $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
+            if location.pathname != "/#{data.slug}"
+                history.pushState question: msg, "", "/#{data.slug}"
     
     $history.on 'clear', ->
         $history.html('')
@@ -116,10 +116,13 @@ $ ->
     if location.hash.length && location.hash != '#'
         $(window).trigger 'hashchange'
     
-    $(window).on 'popstate', (e,x,y) ->
+    $(window).on 'popstate', (e) ->
         if location.pathname != "/"
-            slug = location.pathname.substr(1)
-            $prompt.trigger 'enterquestion', text: slug
+            if 'state' of e.originalEvent and e.originalEvent.state? and 'question' of e.originalEvent.state
+                question = e.originalEvent.state.question
+            else
+                question = location.pathname.substr(1)
+            $prompt.trigger 'enterquestion', text: question
         else
             $history.trigger 'question', 'welcome'
     

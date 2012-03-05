@@ -97,32 +97,35 @@
         type: 'GET',
         dataType: 'json'
       }).success(function(data) {
-        return window.setTimeout(function() {
-          if (data.text) {
+        if (data.text) {
+          $history.trigger('message', {
+            type: 'answer',
+            html: converter.makeHtml(data.text)
+          });
+        }
+        if (data.page) {
+          $content.trigger('showwebpage', {
+            url: data.page
+          });
+        } else if (data.url) {
+          $content.trigger('showwebpage', {
+            url: data.url
+          });
+        }
+        if (data.javascript) {
+          eval("msg = (function(m) { " + data.javascript + " })(data.matches);");
+          if (msg) {
             $history.trigger('message', {
               type: 'answer',
-              html: converter.makeHtml(data.text)
+              html: converter.makeHtml(msg)
             });
           }
-          if (data.page) {
-            $content.trigger('showwebpage', {
-              url: data.page
-            });
-          } else if (data.url) {
-            $content.trigger('showwebpage', {
-              url: data.url
-            });
-          }
-          if (data.javascript) {
-            eval("msg = (function(m) { " + data.javascript + " })(data.matches);");
-            if (msg) {
-              return $history.trigger('message', {
-                type: 'answer',
-                html: converter.makeHtml(msg)
-              });
-            }
-          }
-        }, answerDelay);
+        }
+        if (location.pathname !== ("/" + data.slug)) {
+          return history.pushState({
+            question: msg
+          }, "", "/" + data.slug);
+        }
       });
     });
     $history.on('clear', function() {
@@ -173,12 +176,16 @@
     if (location.hash.length && location.hash !== '#') {
       $(window).trigger('hashchange');
     }
-    $(window).on('popstate', function(e, x, y) {
-      var slug;
+    $(window).on('popstate', function(e) {
+      var question;
       if (location.pathname !== "/") {
-        slug = location.pathname.substr(1);
+        if ('state' in e.originalEvent && (e.originalEvent.state != null) && 'question' in e.originalEvent.state) {
+          question = e.originalEvent.state.question;
+        } else {
+          question = location.pathname.substr(1);
+        }
         return $prompt.trigger('enterquestion', {
-          text: slug
+          text: question
         });
       } else {
         return $history.trigger('question', 'welcome');
