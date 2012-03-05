@@ -1,0 +1,90 @@
+#conversation {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 320px;
+    
+    #logo {
+        position: absolute;
+        bottom: 20px;
+        left: 30px;
+    }
+    
+    #prompt {
+        position: absolute;
+        bottom: 60px;
+        left: 20px;
+        right: 20px;
+        font-size: 18px;
+        border: 0;
+        margin: 0;
+        display: block;
+        background: #000;
+        color: #FFF;
+        padding: 4px 6px;
+        text-transform: lowercase;
+        text-align: right;
+        @include border-radius(0);
+        
+        &:focus {
+            outline: 0;
+        }
+    }
+    
+    #history-container {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        bottom: 93px;
+    }
+    
+    #history {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-height: 100%;
+        overflow: auto;
+        list-style: none;
+        padding: 0;
+        
+        li {
+            padding: 10px;
+            border-top: 1px solid #000;
+            position: relative;
+            line-height: 1.4;
+            
+            &:before {
+                font-weight: bold;
+                position: absolute;
+                left: 5px;
+            }
+            
+            &.question {
+                border-top-width: 2px;
+                text-align: right;
+                font-style: italic;
+            }
+            
+            &.answer {
+            }
+            
+            p {
+                margin: 0;
+            }
+        }
+        
+        a {
+            font-weight: bold;
+            text-decoration: none;
+            
+            &:hover {
+                background: #000;
+                color: #FFF;
+            }
+        }
+    }
+}
+
