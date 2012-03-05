@@ -54,17 +54,39 @@
       return _results;
     });
     $history.on('message', function(e, data) {
-      var $entry;
-      $entry = $('<li>');
-      $entry.addClass(data.type);
+      var $entry, $entryContainer, duration, entryHeight;
+      $entryContainer = $('<li>');
+      $entry = $('<div class="entry">');
+      $entryContainer.addClass(data.type);
       if ('html' in data) {
         $entry.html(data.html);
       } else {
         $entry.text(data.text);
       }
-      $history.append($entry);
-      $prompt.val('');
-      return $history.scrollTop(99999999);
+      $entry.hide();
+      $entryContainer.append($entry);
+      $history.append($entryContainer);
+      entryHeight = $entry.outerHeight();
+      duration = 200;
+      $entryContainer.animate({
+        height: entryHeight
+      }, {
+        duration: duration,
+        easing: "linear",
+        step: function(now, fx) {
+          return $history.scrollTop(99999999);
+        }
+      });
+      $entry.css({
+        opacity: 0
+      });
+      $entry.show();
+      $entry.animate({
+        opacity: 1
+      }, duration, "linear", function() {
+        return $history.scrollTop(99999999);
+      });
+      return $prompt.val('');
     });
     $history.on('question', function(e, msg) {
       return $.ajax({
@@ -102,6 +124,11 @@
           }
         }, answerDelay);
       });
+    });
+    $history.on('clear', function() {
+      $history.html('');
+      $content.html('');
+      return $history.trigger('question', 'welcome');
     });
     $(document).on('click', '#history a:not([href*="/"])', function(e) {
       var slug;

@@ -37,15 +37,28 @@ $ ->
                 , ++i*100 + Math.random() * 100
     
     $history.on 'message', (e, data) ->
-        $entry = $('<li>')
-        $entry.addClass data.type
+        $entryContainer = $('<li>')
+        $entry = $('<div class="entry">')
+        $entryContainer.addClass data.type
         if 'html' of data
             $entry.html data.html
         else
             $entry.text data.text
-        $history.append $entry
+        $entry.hide()
+        $entryContainer.append $entry
+        $history.append $entryContainer
+        entryHeight = $entry.outerHeight()
+        duration = 200
+        
+        $entryContainer.animate (height: entryHeight), (duration: duration, easing: "linear", step: (now, fx) ->
+            $history.scrollTop(99999999)
+        )
+        $entry.css opacity: 0
+        $entry.show()
+        $entry.animate opacity: 1, duration, "linear", ->
+            $history.scrollTop(99999999)
+        
         $prompt.val ''
-        $history.scrollTop(99999999)
     
     $history.on 'question', (e, msg) ->
         $.ajax
@@ -67,6 +80,11 @@ $ ->
                     if msg
                         $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
             , answerDelay
+    
+    $history.on 'clear', ->
+        $history.html('')
+        $content.html('')
+        $history.trigger 'question', 'welcome'
     
     $(document).on 'click', '#history a:not([href*="/"])', (e) ->
         e.preventDefault()
