@@ -5,6 +5,8 @@ $ ->
     converter = new Showdown.converter
     answerDelay = 1000
     
+    $history.data 'log', []
+    
     $prompt.on 'keypress', (e, data) ->
         key = e.keyCode || e.which
         msg = $prompt.val().toLowerCase().trim()
@@ -17,6 +19,22 @@ $ ->
         window.setTimeout ->
             $prompt[0].focus()
         , 1
+    .on 'keydown', (e) ->
+        key = e.keyCode || e.which
+        switch key
+            when 38
+                index = $history.data('logIndex') - 1
+            when 40
+                index = $history.data('logIndex') + 1
+            else
+                $history.data 'logIndex', $history.data('log').length
+        if $history.data('log')[index]
+            $history.data 'logIndex', index
+            $prompt.val $history.data('log')[index]
+        else if key == 40
+            $history.data 'logIndex', $history.data('log').length
+            $prompt.val("")
+
     
     $prompt.on 'enterquestion', (e, data) ->
         $prompt.val('')
@@ -37,6 +55,11 @@ $ ->
                 , ++i*100 + Math.random() * 100
     
     $history.on 'message', (e, data) ->
+        if data.type == 'question'
+            log = $history.data 'log'
+            log.push data.text
+            $history.data 'log', log
+            $history.data 'logIndex', log.length
         $entryContainer = $('<li>')
         $entry = $('<div class="entry">')
         $entryContainer.addClass data.type

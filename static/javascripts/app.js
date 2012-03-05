@@ -7,6 +7,7 @@
     $content = $('#content');
     converter = new Showdown.converter;
     answerDelay = 1000;
+    $history.data('log', []);
     $prompt.on('keypress', function(e, data) {
       var key, msg;
       key = e.keyCode || e.which;
@@ -24,6 +25,26 @@
       return window.setTimeout(function() {
         return $prompt[0].focus();
       }, 1);
+    }).on('keydown', function(e) {
+      var index, key;
+      key = e.keyCode || e.which;
+      switch (key) {
+        case 38:
+          index = $history.data('logIndex') - 1;
+          break;
+        case 40:
+          index = $history.data('logIndex') + 1;
+          break;
+        default:
+          $history.data('logIndex', $history.data('log').length);
+      }
+      if ($history.data('log')[index]) {
+        $history.data('logIndex', index);
+        return $prompt.val($history.data('log')[index]);
+      } else if (key === 40) {
+        $history.data('logIndex', $history.data('log').length);
+        return $prompt.val("");
+      }
     });
     $prompt.on('enterquestion', function(e, data) {
       var char, i, _i, _len, _ref, _results;
@@ -54,7 +75,13 @@
       return _results;
     });
     $history.on('message', function(e, data) {
-      var $entry, $entryContainer, duration, entryHeight;
+      var $entry, $entryContainer, duration, entryHeight, log;
+      if (data.type === 'question') {
+        log = $history.data('log');
+        log.push(data.text);
+        $history.data('log', log);
+        $history.data('logIndex', log.length);
+      }
       $entryContainer = $('<li>');
       $entry = $('<div class="entry">');
       $entryContainer.addClass(data.type);
