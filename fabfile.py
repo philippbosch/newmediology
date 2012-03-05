@@ -32,12 +32,17 @@ def deploy():
             exit()
     local("git push %(remote)s %(branch)s:master" % env)
     migrate()
+    collectstatic()
     reload_server()
 
 def migrate():
     """Sync and migrate the database."""
     local("heroku run python manage.py syncdb --remote %(remote)s" % env)
     local("heroku run python manage.py migrate --remote %(remote)s" % env)
+
+def collectstatic():
+    """Collect static files and upload to S3"""
+    local("heroku run \"python manage.py collectstatic --noinput\" --remote %(remote)s" % env)
 
 def reload_server():
     """Reload the webserver and take the server flavor into account."""
