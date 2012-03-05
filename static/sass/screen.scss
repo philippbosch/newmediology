@@ -12,5 +12,15 @@ body, input {
     font-size: 16px;
 }
 
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #444;
+            
+    &:hover {
+        color: #999;
+    }
+}
+
 @import "partials/conversation";
 @import "partials/content";

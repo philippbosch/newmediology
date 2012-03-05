@@ -478,6 +478,15 @@ body, input {
   font-size: 16px;
 }
 
+a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #444;
+}
+a:hover {
+  color: #999;
+}
+
 #conversation {
   position: absolute;
   left: 0;
@@ -549,14 +558,6 @@ body, input {
 }
 #conversation #history li p {
   margin: 0;
-}
-#conversation #history a {
-  font-weight: bold;
-  text-decoration: none;
-}
-#conversation #history a:hover {
-  background: #000;
-  color: #FFF;
 }
 
 #content {

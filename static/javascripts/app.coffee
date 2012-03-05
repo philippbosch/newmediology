@@ -3,6 +3,7 @@ $ ->
     $history = $('#history')
     $content = $('#content')
     converter = new Showdown.converter
+    answerDelay = 1000
     
     $prompt.on 'keypress', (e, data) ->
         key = e.keyCode || e.which
@@ -54,16 +55,18 @@ $ ->
             type: 'GET'
             dataType: 'json'
         .success (data) ->
-            if data.text
-                $history.trigger 'message', type: 'answer', html: converter.makeHtml(data.text)
-            if data.page
-                $content.trigger 'showwebpage', url: data.page
-            else if data.url
-                $content.trigger 'showwebpage', url: data.url
-            if data.javascript
-                eval "msg = (function(m) { #{data.javascript} })(data.matches);"
-                if msg
-                    $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
+            window.setTimeout ->
+                if data.text
+                    $history.trigger 'message', type: 'answer', html: converter.makeHtml(data.text)
+                if data.page
+                    $content.trigger 'showwebpage', url: data.page
+                else if data.url
+                    $content.trigger 'showwebpage', url: data.url
+                if data.javascript
+                    eval "msg = (function(m) { #{data.javascript} })(data.matches);"
+                    if msg
+                        $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
+            , answerDelay
     
     $(document).on 'click', '#history a:not([href*="/"])', (e) ->
         e.preventDefault()
@@ -99,6 +102,8 @@ $ ->
         if location.pathname != "/"
             slug = location.pathname.substr(1)
             $prompt.trigger 'enterquestion', text: slug
+        else
+            $history.trigger 'question', 'welcome'
     
     if not Modernizr.history
         $(window).trigger 'popstate'

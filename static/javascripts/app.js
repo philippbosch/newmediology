@@ -1,11 +1,12 @@
 (function() {
 
   $(function() {
-    var $content, $history, $prompt, converter;
+    var $content, $history, $prompt, answerDelay, converter;
     $prompt = $('#prompt');
     $history = $('#history');
     $content = $('#content');
     converter = new Showdown.converter;
+    answerDelay = 1000;
     $prompt.on('keypress', function(e, data) {
       var key, msg;
       key = e.keyCode || e.which;
@@ -74,30 +75,32 @@
         type: 'GET',
         dataType: 'json'
       }).success(function(data) {
-        if (data.text) {
-          $history.trigger('message', {
-            type: 'answer',
-            html: converter.makeHtml(data.text)
-          });
-        }
-        if (data.page) {
-          $content.trigger('showwebpage', {
-            url: data.page
-          });
-        } else if (data.url) {
-          $content.trigger('showwebpage', {
-            url: data.url
-          });
-        }
-        if (data.javascript) {
-          eval("msg = (function(m) { " + data.javascript + " })(data.matches);");
-          if (msg) {
-            return $history.trigger('message', {
+        return window.setTimeout(function() {
+          if (data.text) {
+            $history.trigger('message', {
               type: 'answer',
-              html: converter.makeHtml(msg)
+              html: converter.makeHtml(data.text)
             });
           }
-        }
+          if (data.page) {
+            $content.trigger('showwebpage', {
+              url: data.page
+            });
+          } else if (data.url) {
+            $content.trigger('showwebpage', {
+              url: data.url
+            });
+          }
+          if (data.javascript) {
+            eval("msg = (function(m) { " + data.javascript + " })(data.matches);");
+            if (msg) {
+              return $history.trigger('message', {
+                type: 'answer',
+                html: converter.makeHtml(msg)
+              });
+            }
+          }
+        }, answerDelay);
       });
     });
     $(document).on('click', '#history a:not([href*="/"])', function(e) {
@@ -150,6 +153,8 @@
         return $prompt.trigger('enterquestion', {
           text: slug
         });
+      } else {
+        return $history.trigger('question', 'welcome');
       }
     });
     if (!Modernizr.history) return $(window).trigger('popstate');
