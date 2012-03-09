@@ -66,7 +66,8 @@ INSTALLED_APPS = (
     'gunicorn',
     'south',
     'compressor',
-    '%s.conversation' % PROJECT_NAME
+    '%s.conversation' % PROJECT_NAME,
+    '%s.pages' % PROJECT_NAME,
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

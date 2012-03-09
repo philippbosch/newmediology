@@ -11,15 +11,15 @@ class TalkView(TemplateView):
     template_name = "conversation/base.html"
     
     def dispatch(self, request, **kwargs):
-        sleep(.5)
-        if request.is_ajax():
+        if request.is_ajax() or request.GET.get('ajax', False):
+            sleep(.5)
             answer = Answer.objects.get_by_question(request.GET.get('question'))
             data = {}
             if answer:
-                data['text'] = answer.action_text
-                data['page'] = answer.action_page
-                data['url'] = answer.action_url
-                data['javascript'] = answer.action_javascript
+                data['text'] = answer.action_text or None
+                data['page'] = answer.action_page and answer.action_page.get_absolute_url()
+                data['url'] = answer.action_url or None
+                data['javascript'] = answer.action_javascript or None
                 data['matches'] = answer.matches
                 data['slug'] = answer.slug
                 data['sample_question'] = answer.sample_question
