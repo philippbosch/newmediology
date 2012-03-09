@@ -28,13 +28,13 @@ $ ->
                 index = $history.data('logIndex') + 1
             else
                 $history.data 'logIndex', $history.data('log').length
+                return
         if $history.data('log')[index]
             $history.data 'logIndex', index
             $prompt.val $history.data('log')[index]
         else if key == 40
             $history.data 'logIndex', $history.data('log').length
             $prompt.val("")
-
     
     $prompt.on 'enterquestion', (e, data) ->
         $prompt.val('')

@@ -37,6 +37,7 @@
           break;
         default:
           $history.data('logIndex', $history.data('log').length);
+          return;
       }
       if ($history.data('log')[index]) {
         $history.data('logIndex', index);
