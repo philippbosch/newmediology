@@ -5,5 +5,5 @@ from .views import TalkView
 
 
 urlpatterns = patterns('',
-    url('^(?:(?P<slug>.+))?$', TalkView.as_view(), name="talk"),
+    url('^(?:(?P<slug>[^/]+))?$', TalkView.as_view(), name="talk"),
 )
