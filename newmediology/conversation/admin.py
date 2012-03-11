@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Answer
+from .models import Answer, UnansweredQuestion
 
 
 class AnswerAdmin(admin.ModelAdmin):
@@ -26,3 +26,10 @@ class AnswerAdmin(admin.ModelAdmin):
             return u"RegEx: %s" % instance.trigger_regex
     
 admin.site.register(Answer, AnswerAdmin)
+
+
+class UnansweredQuestionAdmin(admin.ModelAdmin):
+    list_display = ('question', 'asked',)
+    readonly_fields = ('asked',)
+
+admin.site.register(UnansweredQuestion, UnansweredQuestionAdmin)

@@ -4,7 +4,7 @@ from time import sleep
 from django.views.generic import TemplateView
 from django.http import HttpResponse
 
-from .models import Answer
+from .models import Answer, UnansweredQuestion
 
 
 class TalkView(TemplateView):
@@ -23,6 +23,8 @@ class TalkView(TemplateView):
                 data['matches'] = answer.matches
                 data['slug'] = answer.slug
                 data['sample_question'] = answer.sample_question
+                if answer.slug == 'catch-all':
+                    UnansweredQuestion.objects.create(question=request.GET.get('question'))
             
             resp = HttpResponse(json.dumps(data))
             resp['Content-Type'] = 'application/json'

@@ -44,3 +44,14 @@ class Answer(models.Model):
     
     class Meta:
         ordering = ('order',)
+
+
+class UnansweredQuestion(models.Model):
+    question = models.TextField(verbose_name=_("question"))
+    asked = models.DateTimeField(verbose_name=_("asked"), auto_now_add=True)
+    
+    def __unicode__(self):
+        return u"%s" % self.question
+    
+    class Meta:
+        ordering = ('-asked',)
