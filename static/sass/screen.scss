@@ -8,17 +8,26 @@ body {
 }
 
 body, input {
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "Fedra Sans Screen Regular", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
     font-size: 16px;
 }
 
-a {
+strong, a, h1, h2, h3, h4, h5, h6 {
+    font-family: "Fedra Sans Screen Bold", sans-serif;
+    font-style: normal;
     font-weight: bold;
+    font-stretch: normal;
+}
+
+a {
     text-decoration: none;
-    color: #444;
-            
+    color: #000;
+    
     &:hover {
-        color: #999;
+        color: #666;
     }
 }
 

@@ -474,17 +474,26 @@ body {
 }
 
 body, input {
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: "Fedra Sans Screen Regular", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
   font-size: 16px;
 }
 
-a {
+strong, a, h1, h2, h3, h4, h5, h6 {
+  font-family: "Fedra Sans Screen Bold", sans-serif;
+  font-style: normal;
   font-weight: bold;
+  font-stretch: normal;
+}
+
+a {
   text-decoration: none;
-  color: #444;
+  color: #000;
 }
 a:hover {
-  color: #999;
+  color: #666;
 }
 
 #conversation {
@@ -498,6 +507,15 @@ a:hover {
   position: absolute;
   bottom: 20px;
   left: 30px;
+}
+#conversation #logo img {
+  width: 75px;
+  height: 24px;
+  margin-right: 8px;
+}
+#conversation #logo span {
+  text-transform: uppercase;
+  font-size: 14px;
 }
 #conversation #prompt {
   position: absolute;

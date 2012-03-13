@@ -9,6 +9,17 @@
         position: absolute;
         bottom: 20px;
         left: 30px;
+        
+        img {
+            width: 75px;
+            height: 24px;
+            margin-right: 8px;
+        }
+        
+        span {
+            text-transform: uppercase;
+            font-size: 14px;
+        }
     }
     
     #prompt {
