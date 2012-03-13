@@ -67,12 +67,6 @@
             position: relative;
             line-height: 1.4;
             
-            &:before {
-                font-weight: bold;
-                position: absolute;
-                left: 5px;
-            }
-            
             .entry {
                 padding: 10px;
             }
@@ -81,9 +75,6 @@
                 @extend em;
                 border-top-width: 2px;
                 text-align: right;
-            }
-            
-            &.answer {
             }
             
             p {
