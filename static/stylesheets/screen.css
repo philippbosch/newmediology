@@ -148,7 +148,14 @@ abbr[title] {
  * Addresses style set to 'bolder' in FF3+, S4/5, Chrome
 */
 b,
-strong {
+strong,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: bold;
 }
 
@@ -475,17 +482,17 @@ body {
 
 body, input {
   font-family: "Fedra Sans Screen Regular", sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-stretch: normal;
   font-size: 16px;
 }
 
 strong, a, h1, h2, h3, h4, h5, h6 {
   font-family: "Fedra Sans Screen Bold", sans-serif;
-  font-style: normal;
   font-weight: bold;
-  font-stretch: normal;
+}
+
+em, #conversation #history li.question {
+  font-family: "Fedra Sans Screen Italic", sans-serif;
+  font-style: italic;
 }
 
 a {
@@ -522,7 +529,7 @@ a:hover {
   bottom: 60px;
   left: 20px;
   right: 20px;
-  font-size: 18px;
+  font-size: 16px;
   border: 0;
   margin: 0;
   display: block;
@@ -575,7 +582,6 @@ a:hover {
 #conversation #history li.question {
   border-top-width: 2px;
   text-align: right;
-  font-style: italic;
 }
 #conversation #history li p {
   margin: 0;

@@ -9,20 +9,21 @@ body {
 
 body, input {
     font-family: "Fedra Sans Screen Regular", sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-stretch: normal;
     font-size: 16px;
 }
 
-strong, a, h1, h2, h3, h4, h5, h6 {
+strong {
     font-family: "Fedra Sans Screen Bold", sans-serif;
-    font-style: normal;
     font-weight: bold;
-    font-stretch: normal;
+}
+
+em {
+    font-family: "Fedra Sans Screen Italic", sans-serif;
+    font-style: italic;
 }
 
 a {
+    @extend strong;
     text-decoration: none;
     color: #000;
     

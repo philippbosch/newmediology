@@ -27,7 +27,7 @@
         bottom: 60px;
         left: 20px;
         right: 20px;
-        font-size: 18px;
+        font-size: 16px;
         border: 0;
         margin: 0;
         display: block;
@@ -78,9 +78,9 @@
             }
             
             &.question {
+                @extend em;
                 border-top-width: 2px;
                 text-align: right;
-                font-style: italic;
             }
             
             &.answer {
