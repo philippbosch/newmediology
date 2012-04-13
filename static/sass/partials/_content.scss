@@ -14,3 +14,31 @@
 h1, h2, h3, h4, h5, h6 {
     @extend strong;
 }
+
+
+.cell {
+    border-width: 1px; 
+    border-style:solid none none none; 
+    float: left; 
+    width: 320px; 
+    padding: 5px 0px 5px 0px; 
+    margin: 5px 5px 0px;
+    
+    .text {
+        font-size:11px;
+    }
+    
+    h1 {
+        text-transform:uppercase;
+        font-size:12px;
+    }
+    
+    img {
+        float: left;
+        padding: 5px 5px 0px 0px;
+        width: 160px;
+        height: 120px;
+    }
+    
+}
+

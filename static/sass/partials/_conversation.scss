@@ -58,11 +58,25 @@
         right: 0;
         max-height: 100%;
         overflow: auto;
-        list-style: none;
         padding: 0;
         margin: 0;
         
-        li {
+        &, ul {
+            list-style: none;
+        }
+        
+        ul {
+            padding-left: 0;
+            
+            li {
+                &:before {
+                    content: "›";
+                    margin-right: 0.5em;
+                }
+            }
+        }
+        
+        & > li {
             border-top: 1px solid #000;
             position: relative;
             line-height: 1.4;
@@ -83,4 +97,5 @@
         }
     }
 }
+
 

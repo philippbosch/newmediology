@@ -490,7 +490,7 @@ strong, a, h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
 }
 
-em, #conversation #history li.question {
+em, #conversation #history > li.question {
   font-family: "Fedra Sans Screen Italic", sans-serif;
   font-style: italic;
 }
@@ -538,11 +538,10 @@ a:hover {
   padding: 4px 6px;
   text-transform: lowercase;
   text-align: right;
-  -moz-border-radius: 0;
   -webkit-border-radius: 0;
-  -o-border-radius: 0;
+  -moz-border-radius: 0;
   -ms-border-radius: 0;
-  -khtml-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 #conversation #prompt:focus {
@@ -562,23 +561,32 @@ a:hover {
   right: 0;
   max-height: 100%;
   overflow: auto;
-  list-style: none;
   padding: 0;
   margin: 0;
 }
-#conversation #history li {
+#conversation #history, #conversation #history ul {
+  list-style: none;
+}
+#conversation #history ul {
+  padding-left: 0;
+}
+#conversation #history ul li:before {
+  content: "›";
+  margin-right: 0.5em;
+}
+#conversation #history > li {
   border-top: 1px solid #000;
   position: relative;
   line-height: 1.4;
 }
-#conversation #history li .entry {
+#conversation #history > li .entry {
   padding: 10px;
 }
-#conversation #history li.question {
+#conversation #history > li.question {
   border-top-width: 2px;
   text-align: right;
 }
-#conversation #history li p {
+#conversation #history > li p {
   margin: 0;
 }
 
@@ -592,4 +600,26 @@ a:hover {
 #content iframe {
   width: 100%;
   height: 100%;
+}
+
+.cell {
+  border-width: 1px;
+  border-style: solid none none none;
+  float: left;
+  width: 320px;
+  padding: 5px 0px 5px 0px;
+  margin: 5px 5px 0px;
+}
+.cell .text {
+  font-size: 11px;
+}
+.cell h1 {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.cell img {
+  float: left;
+  padding: 5px 5px 0px 0px;
+  width: 160px;
+  height: 120px;
 }
