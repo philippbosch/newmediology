@@ -91,6 +91,46 @@
                 text-align: right;
             }
             
+            &.welcome {
+                &.pinned {
+                    position: fixed;
+                    top: 0;
+                    width: 280px;
+                    height: auto !important;
+                    background: #FFF;
+                    z-index: 1000;
+                    border-top: 0;
+                    border-bottom: 1px solid #000;
+                    @include box-shadow(#FFF 0 0 70px 50px);
+                    
+                    .entry {
+                        & > * {
+                            display: none;
+                        }
+                        
+                        & > ul {
+                            display: block;
+                            margin: 0;
+                            font-size: 70%;
+                            text-transform: uppercase;
+                            
+                            li {
+                                display: inline;
+                                
+                                &:before {
+                                    content: "  ";
+                                    margin-right: 0;
+                                }
+                                
+                                &:first-child:before {
+                                    content: "";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
             p {
                 margin: 0;
             }

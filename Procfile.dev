@@ -1,3 +1,3 @@
 web:            python manage.py runserver 0.0.0.0:$PORT
 compass:        compass watch static
-coffee:         coffee -wc static/javascripts/*.coffee
+coffee:         coffee -wc static/javascripts/

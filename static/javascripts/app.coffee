@@ -63,6 +63,7 @@ $ ->
         $entryContainer = $('<li>')
         $entry = $('<div class="entry">')
         $entryContainer.addClass data.type
+        $entryContainer.addClass data.slug
         if 'html' of data
             $entry.html data.html
         else
@@ -75,6 +76,8 @@ $ ->
         
         $entryContainer.animate (height: entryHeight), (duration: duration, easing: "linear", step: (now, fx) ->
             $history.scrollTop(99999999)
+        , complete: ->
+            $history.trigger 'didscroll', latestEntry: $entry
         )
         $entry.css opacity: 0
         $entry.show()
@@ -92,7 +95,7 @@ $ ->
             dataType: 'json'
         .success (data) ->
             if data.text
-                $history.trigger 'message', type: 'answer', html: converter.makeHtml(data.text)
+                $history.trigger 'message', type: 'answer', slug: data.slug, html: converter.makeHtml(data.text)
             if data.page
                 $content.trigger 'showwebpage', url: data.page
             else if data.url
@@ -100,7 +103,7 @@ $ ->
             if data.javascript
                 eval "msg = (function(m) { #{data.javascript} })(data.matches);"
                 if msg
-                    $history.trigger 'message', type: 'answer', html: converter.makeHtml(msg)
+                    $history.trigger 'message', type: 'answer', slug: data.slug, html: converter.makeHtml(msg)
             if location.pathname != "/#{data.slug}"
                 history.pushState question: msg, "", "/#{data.slug}"
     
@@ -140,14 +143,21 @@ $ ->
         $(window).trigger 'hashchange'
     
     $(window).on 'popstate', (e) ->
+        $history.trigger 'question', 'welcome'
         if location.pathname != "/"
             if 'state' of e.originalEvent and e.originalEvent.state? and 'question' of e.originalEvent.state
                 question = e.originalEvent.state.question
             else
                 question = location.pathname.substr(1)
-            $prompt.trigger 'enterquestion', text: question
-        else
-            $history.trigger 'question', 'welcome'
+            $history.one 'message', ->
+                $prompt.trigger 'enterquestion', text: question
     
     if not Modernizr.history
         $(window).trigger 'popstate'
+    
+    $history.on 'didscroll', (e, data) ->
+        $welcome = $('li.welcome:first:not(.pinned)', this)
+        if $welcome.length and $welcome.position().top < 0
+            $welcome.addClass 'pinned'
+            $welcome.css top: '-50px'
+            $welcome.animate top: 0, 500, 'linear'

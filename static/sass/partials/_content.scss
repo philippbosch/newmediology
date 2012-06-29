@@ -4,6 +4,7 @@
     right: 0;
     top: 0;
     bottom: 0;
+    z-index: 2000;
     
     iframe {
         width: 100%;
@@ -42,3 +43,10 @@ h1, h2, h3, h4, h5, h6 {
     
 }
 
+.page {
+    .text {
+        max-width: 640px;
+        margin-right: 20px;
+        float: left;
+    }
+}

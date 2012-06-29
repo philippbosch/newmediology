@@ -586,6 +586,38 @@ a:hover {
   border-top-width: 2px;
   text-align: right;
 }
+#conversation #history > li.welcome.pinned {
+  position: fixed;
+  top: 0;
+  width: 280px;
+  height: auto !important;
+  background: #FFF;
+  z-index: 1000;
+  border-top: 0;
+  border-bottom: 1px solid #000;
+  -webkit-box-shadow: white 0 0 70px 50px;
+  -moz-box-shadow: white 0 0 70px 50px;
+  box-shadow: white 0 0 70px 50px;
+}
+#conversation #history > li.welcome.pinned .entry > * {
+  display: none;
+}
+#conversation #history > li.welcome.pinned .entry > ul {
+  display: block;
+  margin: 0;
+  font-size: 70%;
+  text-transform: uppercase;
+}
+#conversation #history > li.welcome.pinned .entry > ul li {
+  display: inline;
+}
+#conversation #history > li.welcome.pinned .entry > ul li:before {
+  content: "  ";
+  margin-right: 0;
+}
+#conversation #history > li.welcome.pinned .entry > ul li:first-child:before {
+  content: "";
+}
 #conversation #history > li p {
   margin: 0;
 }
@@ -596,6 +628,7 @@ a:hover {
   right: 0;
   top: 0;
   bottom: 0;
+  z-index: 2000;
 }
 #content iframe {
   width: 100%;
@@ -622,4 +655,10 @@ a:hover {
   padding: 5px 5px 0px 0px;
   width: 160px;
   height: 120px;
+}
+
+.page .text {
+  max-width: 640px;
+  margin-right: 20px;
+  float: left;
 }
