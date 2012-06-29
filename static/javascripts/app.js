@@ -214,19 +214,30 @@
       $(window).trigger('hashchange');
     }
     $(window).on('popstate', function(e) {
-      var question;
-      $history.trigger('question', 'welcome');
+      var firstMessage, question;
+      firstMessage = !$history.find('li').length;
+      if (firstMessage) {
+        $history.trigger('question', 'welcome');
+      }
       if (location.pathname !== "/") {
         if ('state' in e.originalEvent && (e.originalEvent.state != null) && 'question' in e.originalEvent.state) {
           question = e.originalEvent.state.question;
         } else {
           question = location.pathname.substr(1);
         }
-        return $history.one('message', function() {
-          return $prompt.trigger('enterquestion', {
-            text: question
-          });
-        });
+        if (question !== 'welcome') {
+          if (firstMessage) {
+            return $history.one('message', function() {
+              return $prompt.trigger('enterquestion', {
+                text: question
+              });
+            });
+          } else {
+            return $prompt.trigger('enterquestion', {
+              text: question
+            });
+          }
+        }
       }
     });
     if (!Modernizr.history) {

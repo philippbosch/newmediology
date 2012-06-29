@@ -143,14 +143,20 @@ $ ->
         $(window).trigger 'hashchange'
     
     $(window).on 'popstate', (e) ->
-        $history.trigger 'question', 'welcome'
+        firstMessage = !$history.find('li').length
+        if firstMessage
+            $history.trigger 'question', 'welcome'
         if location.pathname != "/"
             if 'state' of e.originalEvent and e.originalEvent.state? and 'question' of e.originalEvent.state
                 question = e.originalEvent.state.question
             else
                 question = location.pathname.substr(1)
-            $history.one 'message', ->
-                $prompt.trigger 'enterquestion', text: question
+            if question != 'welcome'
+                if firstMessage
+                    $history.one 'message', ->
+                        $prompt.trigger 'enterquestion', text: question
+                else
+                    $prompt.trigger 'enterquestion', text: question
     
     if not Modernizr.history
         $(window).trigger 'popstate'
